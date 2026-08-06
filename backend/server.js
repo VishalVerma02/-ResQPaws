@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 const dotenv = require('dotenv');
 const { connectDB } = require('./config/db');
 
@@ -25,16 +26,20 @@ app.use('/api/reports', require('./routes/reports'));
 app.use('/api/stats', require('./routes/stats'));
 app.use('/api/stories', require('./routes/stories'));
 
-// Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// Serve static assets (Vite React Build)
+const distPath = path.join(__dirname, '../frontend/dist');
+const indexPath = path.resolve(__dirname, '../frontend', 'dist', 'index.html');
+
+if (fs.existsSync(indexPath)) {
+  console.log('Serving production frontend static files from:', distPath);
+  app.use(express.static(distPath));
   app.get('*', (req, res) => {
     if (!req.url.startsWith('/api') && !req.url.startsWith('/uploads')) {
-      res.sendFile(path.resolve(__dirname, '../frontend', 'dist', 'index.html'));
+      res.sendFile(indexPath);
     }
   });
 } else {
-  // Root path diagnostic in development
+  console.log('Frontend dist folder not found. Running in API diagnostic mode.');
   app.get('/', (req, res) => {
     res.send('ResQ Paws API is running...');
   });
@@ -44,6 +49,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-// Trigger auto-deployment: MongoDB Atlas cloud network whitelisting connection update
-// Verified: server-static configuration, chatbot assistant, real Leaflet maps, live statistics.
