@@ -44,3 +44,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Trigger auto-deployment: MongoDB Atlas cloud network whitelisting connection update
+// Verified: server-static configuration, chatbot assistant, real Leaflet maps, live statistics.
