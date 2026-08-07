@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { LayoutDashboard, Compass, CheckSquare, Trophy, Star, LogOut, Bell, Shield, User, Sun, Moon, Map, Award } from 'lucide-react';
+import { LayoutDashboard, Compass, CheckSquare, Trophy, Star, LogOut, Bell, Shield, User, Sun, Moon, Map, Award, Menu, X } from 'lucide-react';
 import RescueMap from './RescueMap';
 import SuccessStories from './SuccessStories';
 
 export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggleTheme, onUpdateUser, onNavigate }) {
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [stats, setStats] = useState({
     availableCount: 0,
     acceptedCount: 0,
@@ -391,10 +392,26 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--light-gray)' }}>
+      {/* Mobile Drawer Overlay Backdrop */}
+      {mobileSidebarOpen && (
+        <div 
+          onClick={() => setMobileSidebarOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999
+          }}
+        />
+      )}
+
       {/* Sidebar - Dark theme */}
-      <aside style={{
+      <aside className={mobileSidebarOpen ? 'mobile-drawer-open' : ''} style={{
         width: '240px',
-        backgroundColor: '#1e293b',
+        backgroundColor: '#0F172A',
         color: '#ffffff',
         padding: '24px 16px',
         display: 'flex',
@@ -403,9 +420,9 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
         position: 'sticky',
         top: 0,
         height: '100vh',
-        zIndex: 10
+        zIndex: 1000
       }}>
-        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px' }}>
+        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px', cursor: 'pointer' }} onClick={() => { setActiveSection('dashboard'); setMobileSidebarOpen(false); }}>
           <div style={{ backgroundColor: '#1E5F3F', color: '#ffffff', padding: '6px', borderRadius: '8px', display: 'flex' }}>🐾</div>
           <span style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>ResQ Paws</span>
         </div>
@@ -421,7 +438,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => { setActiveSection(item.id); setMobileSidebarOpen(false); }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -468,29 +485,50 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
           height: '70px',
           backgroundColor: 'var(--white)',
           borderBottom: '1px solid var(--border-color)',
-          padding: '0 30px',
+          padding: '0 20px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
-          gap: '24px'
+          justifyContent: 'space-between',
+          gap: '16px'
         }}>
-          {/* Theme Toggler */}
-          <button 
-            onClick={onToggleTheme} 
-            style={{ 
-              color: 'var(--text-medium)', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              padding: '8px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--light-gray)',
-              border: '1px solid var(--border-color)',
-              cursor: 'pointer'
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+            className="mobile-menu-btn"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#1E5F3F',
+              color: '#ffffff',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              fontWeight: 600,
+              fontSize: '0.85rem'
             }}
           >
-            {isDarkMode ? <Sun size={18} color="#eab308" /> : <Moon size={18} />}
+            {mobileSidebarOpen ? <X size={18} /> : <Menu size={18} />}
+            <span>Menu</span>
           </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginLeft: 'auto' }}>
+            {/* Theme Toggler */}
+            <button 
+              onClick={onToggleTheme} 
+              style={{ 
+                color: 'var(--text-medium)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                padding: '8px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--light-gray)',
+                border: '1px solid var(--border-color)',
+                cursor: 'pointer'
+              }}
+            >
+              {isDarkMode ? <Sun size={18} color="#eab308" /> : <Moon size={18} />}
+            </button>
 
           <button style={{ color: 'var(--text-medium)', position: 'relative' }}>
             <Bell size={20} />
@@ -527,6 +565,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
                 {profileForm.name ? profileForm.name.split(' ').map(n=>n[0]).join('') : 'V'}
               </div>
             )}
+            </div>
           </div>
         </header>
 

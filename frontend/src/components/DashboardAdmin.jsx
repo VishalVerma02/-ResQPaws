@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { LayoutDashboard, Users, UserCheck, Heart, Map, LineChart, Settings, LogOut, Bell, FileText, Trash2, ShieldAlert, Sun, Moon, Award, BarChart } from 'lucide-react';
+import { LayoutDashboard, Users, UserCheck, Heart, Map, LineChart, Settings, LogOut, Bell, FileText, Trash2, ShieldAlert, Sun, Moon, Award, BarChart, Menu, X } from 'lucide-react';
 import RescueMap from './RescueMap';
 import SuccessStories from './SuccessStories';
 
 export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleTheme, onUpdateUser, onNavigate }) {
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [stats, setStats] = useState({
     totalReports: 0,
     volunteers: 0,
@@ -955,8 +956,24 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--light-gray)' }}>
+      {/* Mobile Drawer Overlay Backdrop */}
+      {mobileSidebarOpen && (
+        <div 
+          onClick={() => setMobileSidebarOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999
+          }}
+        />
+      )}
+
       {/* Sidebar - Dark theme */}
-      <aside style={{
+      <aside className={mobileSidebarOpen ? 'mobile-drawer-open' : ''} style={{
         width: '240px',
         backgroundColor: '#1E293B',
         color: '#ffffff',
@@ -967,9 +984,9 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
         position: 'sticky',
         top: 0,
         height: '100vh',
-        zIndex: 10
+        zIndex: 1000
       }}>
-        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px' }}>
+        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px', cursor: 'pointer' }} onClick={() => { setActiveSection('dashboard'); setMobileSidebarOpen(false); }}>
           <div style={{ backgroundColor: '#1E5F3F', color: '#ffffff', padding: '6px', borderRadius: '8px', display: 'flex' }}>🐾</div>
           <span style={{ fontSize: '1.2rem', fontWeight: 700, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>ResQ Paws</span>
         </div>
@@ -991,7 +1008,7 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => { setActiveSection(item.id); setMobileSidebarOpen(false); }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1038,12 +1055,33 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
           height: '70px',
           backgroundColor: 'var(--white)',
           borderBottom: '1px solid var(--border-color)',
-          padding: '0 30px',
+          padding: '0 20px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
-          gap: '24px'
+          justifyContent: 'space-between',
+          gap: '16px'
         }}>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+            className="mobile-menu-btn"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#1E5F3F',
+              color: '#ffffff',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              fontWeight: 600,
+              fontSize: '0.85rem'
+            }}
+          >
+            {mobileSidebarOpen ? <X size={18} /> : <Menu size={18} />}
+            <span>Menu</span>
+          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginLeft: 'auto' }}>
           {/* Theme Toggler */}
           <button 
             onClick={onToggleTheme} 
@@ -1165,6 +1203,7 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
                 AD
               </div>
             )}
+            </div>
           </div>
         </header>
 

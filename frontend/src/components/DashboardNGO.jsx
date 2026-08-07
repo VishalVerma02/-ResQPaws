@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { LayoutDashboard, Shield, ShieldAlert, Award, LogOut, Bell, Compass, CheckSquare, Users, Sun, Moon, User, Map } from 'lucide-react';
+import { LayoutDashboard, Shield, ShieldAlert, Award, LogOut, Bell, Compass, CheckSquare, Users, Sun, Moon, User, Map, Menu, X } from 'lucide-react';
 import RescueMap from './RescueMap';
 import SuccessStories from './SuccessStories';
 
 export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme, onUpdateUser, onNavigate }) {
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [stats, setStats] = useState({
     availableCount: 0,
     activeCount: 0,
@@ -308,8 +309,24 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--light-gray)' }}>
-      {/* Sidebar - Dark theme */}
-      <aside style={{
+      {/* Mobile Drawer Overlay Backdrop */}
+      {mobileSidebarOpen && (
+        <div 
+          onClick={() => setMobileSidebarOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 999
+          }}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={mobileSidebarOpen ? 'mobile-drawer-open' : ''} style={{
         width: '240px',
         backgroundColor: 'var(--white)',
         borderRight: '1px solid var(--border-color)',
@@ -320,9 +337,9 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
         position: 'sticky',
         top: 0,
         height: '100vh',
-        zIndex: 10
+        zIndex: 1000
       }}>
-        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px', cursor: 'pointer' }} onClick={() => setActiveTab('available')}>
+        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', paddingLeft: '8px', cursor: 'pointer' }} onClick={() => { setActiveTab('available'); setMobileSidebarOpen(false); }}>
           <div style={{ backgroundColor: '#1E5F3F', color: '#ffffff', padding: '6px', borderRadius: '8px', display: 'flex' }}>🐾</div>
           <span style={{ fontSize: '1.2rem', fontWeight: 700, color: '#1E5F3F', fontFamily: 'var(--font-heading)' }}>ResQ Paws</span>
         </div>
@@ -340,7 +357,7 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => { setActiveTab(item.id); setMobileSidebarOpen(false); }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -387,43 +404,59 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
           height: '70px',
           backgroundColor: 'var(--white)',
           borderBottom: '1px solid var(--border-color)',
-          padding: '0 30px',
+          padding: '0 20px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
-          gap: '24px'
+          justifyContent: 'space-between',
+          gap: '16px'
         }}>
-          {/* Theme Toggler */}
-          <button 
-            onClick={onToggleTheme} 
-            style={{ 
-              color: 'var(--text-medium)', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              padding: '8px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--light-gray)',
-              border: '1px solid var(--border-color)',
-              cursor: 'pointer'
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+            className="mobile-menu-btn"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: '#1E5F3F',
+              color: '#ffffff',
+              padding: '8px 14px',
+              borderRadius: '8px',
+              fontWeight: 600,
+              fontSize: '0.85rem'
             }}
           >
-            {isDarkMode ? <Sun size={18} color="#eab308" /> : <Moon size={18} />}
+            {mobileSidebarOpen ? <X size={18} /> : <Menu size={18} />}
+            <span>Menu</span>
           </button>
 
-          <button style={{ color: 'var(--text-medium)', position: 'relative' }}>
-            <Bell size={20} />
-            <span style={{ position: 'absolute', top: '-4px', right: '-4px', width: '8px', height: '8px', backgroundColor: '#ef4444', borderRadius: '50%' }} />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginLeft: 'auto' }}>
+            {/* Theme Toggler */}
+            <button 
+              onClick={onToggleTheme} 
+              style={{ 
+                color: 'var(--text-medium)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                padding: '8px',
+                borderRadius: '50%',
+                backgroundColor: 'var(--light-gray)',
+                border: '1px solid var(--border-color)',
+                cursor: 'pointer'
+              }}
+            >
+              {isDarkMode ? <Sun size={18} color="#eab308" /> : <Moon size={18} />}
+            </button>
 
-          <div 
-            onClick={() => setActiveTab('profile')} 
-            style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
-          >
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-dark)' }}>{profileForm.name}</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'capitalize' }}>NGO Partner</div>
-            </div>
+            <div 
+              onClick={() => setActiveTab('profile')} 
+              style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
+            >
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-dark)' }}>{profileForm.name}</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'capitalize' }}>NGO Partner</div>
+              </div>
             {user.profilePicture ? (
               <img 
                 src={user.profilePicture} 
@@ -446,6 +479,7 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
                 NP
               </div>
             )}
+            </div>
           </div>
         </header>
 
