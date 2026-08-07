@@ -303,90 +303,159 @@ select.form-control {
 }
 
 /* ==========================================
-   Mobile Responsiveness & Adaptive Layouts
+   Mobile, Tablet, Laptop & Desktop Responsiveness
    ========================================== */
-.mobile-nav-toggle {
-  display: none;
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 900px) {
-  /* Landing page grids */
+.table-responsive table {
+  min-width: 600px;
+}
+
+/* Touch friendly buttons on mobile */
+@media (pointer: coarse) {
+  button, input[type="button"], input[type="submit"] {
+    min-height: 42px;
+  }
+}
+
+/* Large Displays (> 1440px) */
+@media (min-width: 1440px) {
+  .container, section, header {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Laptops & Tablets (900px - 1200px) */
+@media (max-width: 1024px) {
   section {
-    grid-template-columns: 1fr !important;
-    padding: 40px 5% !important;
+    padding: 40px 6% !important;
   }
   
-  section > div[style*="flexDirection"] {
-    flex-direction: column !important;
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
+/* Tablets & Mobile Screens (< 768px) */
 @media (max-width: 768px) {
   :root {
     --sidebar-w: 0px;
     --sidebar-dark-w: 0px;
   }
 
-  /* Hide default sidebars */
-  aside {
-    display: none !important;
-  }
-
-  /* Responsive header */
+  /* Responsive Headers */
   header {
-    padding: 15px 5% !important;
+    padding: 12px 4% !important;
   }
 
-  header nav {
-    display: none !important; /* Hide landing page nav links on mobile */
+  /* Stack main section grids */
+  section {
+    grid-template-columns: 1fr !important;
+    padding: 30px 4% !important;
+    gap: 24px !important;
+  }
+  
+  /* Stack inline flex items vertically */
+  section > div[style*="flexDirection"],
+  div[style*="display: flex"][style*="justify-content: space-between"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
   }
 
-  /* Form columns stack */
+  /* Auto-stack grid columns */
   div[style*="gridTemplateColumns"] {
     grid-template-columns: 1fr !important;
-    gap: 20px !important;
+    gap: 16px !important;
   }
 
-  /* Stats grid stack */
-  div[style*="gridTemplateColumns"]:has(.card) {
-    grid-template-columns: 1fr 1fr !important;
-  }
-
-  /* Mobile bottom padding for floating actions */
-  main {
-    padding-bottom: 60px !important;
-  }
-
-  /* Adaptive charts */
-  div[style*="gridTemplateColumns"]:has(svg) {
+  /* Rescue map grid split on mobile */
+  div[style*="gridTemplateColumns: 1fr 2.5fr"],
+  div[style*="grid-template-columns: 1fr 2.5fr"] {
     grid-template-columns: 1fr !important;
+    min-height: auto !important;
   }
 
-  /* Interactive toggle button for side menu */
-  .mobile-nav-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--primary);
-    color: #ffffff;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  }
-}
-
-@media (max-width: 480px) {
-  /* Force double column stats grid into single column on extra small screens */
-  div[style*="gridTemplateColumns"]:has(.card) {
-    grid-template-columns: 1fr !important;
+  /* Responsive Cards */
+  .card {
+    padding: 16px !important;
   }
 
+  /* Typography Scaling */
   h1 {
     font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.2rem !important;
+  }
+
+  p {
+    font-size: 0.92rem !important;
+  }
+
+  /* Modal scaling for small screens */
+  div[style*="position: fixed"][style*="zIndex: 1000"] > div[style*="backgroundColor"],
+  div[style*="position: fixed"][style*="z-index: 1000"] > div[style*="background"] {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    padding: 16px !important;
+    overflow-y: auto !important;
+  }
+
+  /* ResQ Chatbot Window scaling on mobile */
+  div[style*="position: fixed"][style*="bottom: 96px"] {
+    width: calc(100vw - 32px) !important;
+    right: 16px !important;
+    left: 16px !important;
+    bottom: 84px !important;
+    height: 70vh !important;
+    max-height: 520px !important;
+  }
+
+  /* Mobile bottom spacing for floating chat widget */
+  main, body {
+    padding-bottom: 70px !important;
   }
 }
+
+/* Extra Small Phones (< 480px) */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.85rem !important;
+  }
+
+  /* Single column stats on phones */
+  div[style*="gridTemplateColumns"]:has(.card) {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Full width action buttons */
+  button {
+    white-space: normal !important;
+  }
+
+  div[style*="display: flex"][style*="gap: 16px"] {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  div[style*="display: flex"][style*="gap: 16px"] > button,
+  div[style*="display: flex"][style*="gap: 16px"] > a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+
