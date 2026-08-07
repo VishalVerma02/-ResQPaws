@@ -348,7 +348,7 @@ select.form-control {
 
 /* Large Displays (> 1440px) */
 @media (min-width: 1440px) {
-  .container, section, header {
+  .container, .landing-page section, .landing-page header {
     max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
@@ -399,9 +399,9 @@ select.form-control {
     overflow-x: hidden !important;
   }
 
-  /* Responsive Headers */
-  header {
-    padding: 12px 4% !important;
+  main > header {
+    padding: 0 16px !important;
+    justify-content: space-between !important;
   }
 
   /* Stack main section grids */

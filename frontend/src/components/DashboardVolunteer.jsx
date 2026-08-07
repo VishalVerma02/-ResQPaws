@@ -488,7 +488,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
           padding: '0 20px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           gap: '16px'
         }}>
           {/* Mobile Menu Button */}
@@ -496,7 +496,6 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
             onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
             className="mobile-menu-btn"
             style={{
-              display: 'flex',
               alignItems: 'center',
               gap: '6px',
               backgroundColor: '#1E5F3F',
@@ -511,7 +510,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
             <span>Menu</span>
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginLeft: 'auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {/* Theme Toggler */}
             <button 
               onClick={onToggleTheme} 
