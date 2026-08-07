@@ -1,9 +1,10 @@
-import React from 'react';
-import { ShieldAlert, Users, Landmark, MapPin, PhoneCall, Play, Sun, Moon } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldAlert, Users, Landmark, MapPin, PhoneCall, Play, Sun, Moon, Menu, X } from 'lucide-react';
 import SuccessStories from './SuccessStories';
 
 export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, isLoggedIn, user, onLogout, isDarkMode, onToggleTheme }) {
-  const [landingStats, setLandingStats] = React.useState({
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [landingStats, setLandingStats] = useState({
     totalReports: 0,
     volunteers: 0,
     ngos: 0,
@@ -91,12 +92,14 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '20px 8%',
+        padding: '16px 5%',
         borderBottom: '1px solid var(--border-color)',
         backgroundColor: 'var(--white)',
         position: 'sticky',
         top: 0,
-        zIndex: 50
+        zIndex: 50,
+        maxWidth: '100vw',
+        boxSizing: 'border-box'
       }}>
         <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => onNavigate('home')}>
           <div style={{ backgroundColor: '#1E5F3F', color: '#ffffff', padding: '6px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -105,12 +108,13 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
           <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#1E5F3F', fontFamily: 'var(--font-heading)' }}>ResQ Paws</span>
         </div>
 
-        <nav style={{ display: 'flex', gap: '30px' }}>
+        {/* Desktop Nav */}
+        <nav className="desktop-nav" style={{ display: 'flex', gap: '24px' }}>
           {['Home', 'About Us', 'How It Works', 'Services', 'Blog', 'Contact'].map(link => (
             <a key={link} href={`#${link.toLowerCase().replace(/\s+/g, '-')}`} style={{
               color: 'var(--text-medium)',
               fontWeight: 500,
-              fontSize: '0.95rem',
+              fontSize: '0.92rem',
               transition: 'color 0.2s'
             }}
             onMouseOver={(e) => e.target.style.color = '#1E5F3F'}
@@ -121,7 +125,7 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
           ))}
         </nav>
 
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
           {/* Theme Toggler */}
           <button 
             onClick={onToggleTheme} 
@@ -140,50 +144,62 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
             {isDarkMode ? <Sun size={16} color="#eab308" /> : <Moon size={16} />}
           </button>
 
+          {/* Mobile Menu Toggle Button */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              padding: '8px',
+              borderRadius: '8px',
+              backgroundColor: 'var(--light-gray)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-dark)',
+              cursor: 'pointer'
+            }}
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
           {isLoggedIn ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <button 
                 onClick={() => onNavigate('dashboard')}
                 className="btn-dashboard"
                 style={{
                   backgroundColor: '#EBF5F0',
                   color: '#1E5F3F',
-                  padding: '10px 20px',
+                  padding: '8px 16px',
                   borderRadius: '8px',
                   fontWeight: 600,
-                  fontSize: '0.9rem'
+                  fontSize: '0.85rem'
                 }}
-                onMouseOver={(e) => e.target.style.backgroundColor = '#dcf2e6'}
-                onMouseOut={(e) => e.target.style.backgroundColor = '#EBF5F0'}
               >
-                Go to Dashboard
+                Dashboard
               </button>
               <button 
                 onClick={onLogout}
                 style={{
                   color: '#ef4444',
                   fontWeight: 600,
-                  fontSize: '0.9rem'
+                  fontSize: '0.85rem'
                 }}
               >
                 Logout
               </button>
             </div>
           ) : (
-            <>
+            <div className="desktop-nav" style={{ display: 'flex', gap: '8px' }}>
               <button 
                 onClick={onOpenLogin}
                 className="btn-login"
                 style={{
                   backgroundColor: '#1E5F3F',
                   color: '#ffffff',
-                  padding: '10px 22px',
+                  padding: '8px 18px',
                   borderRadius: '8px',
                   fontWeight: 600,
-                  fontSize: '0.9rem'
+                  fontSize: '0.85rem'
                 }}
-                onMouseOver={(e) => e.target.style.backgroundColor = '#174c32'}
-                onMouseOut={(e) => e.target.style.backgroundColor = '#1E5F3F'}
               >
                 Login
               </button>
@@ -193,27 +209,72 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
                 style={{
                   border: '1px solid #1E5F3F',
                   color: '#1E5F3F',
-                  padding: '10px 22px',
+                  padding: '8px 18px',
                   borderRadius: '8px',
                   fontWeight: 600,
-                  fontSize: '0.9rem'
+                  fontSize: '0.85rem'
                 }}
-                onMouseOver={(e) => { e.target.style.backgroundColor = '#EBF5F0'; }}
-                onMouseOut={(e) => { e.target.style.backgroundColor = 'transparent'; }}
               >
                 Register
               </button>
-            </>
+            </div>
           )}
         </div>
       </header>
 
+      {/* Mobile Slide-Down Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div style={{
+          backgroundColor: 'var(--white)',
+          borderBottom: '1px solid var(--border-color)',
+          padding: '16px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          zIndex: 49,
+          boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
+        }}>
+          {['Home', 'About Us', 'How It Works', 'Services', 'Blog', 'Contact'].map(link => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                color: 'var(--text-dark)',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+                padding: '6px 0',
+                borderBottom: '1px solid var(--border-color)'
+              }}
+            >
+              {link}
+            </a>
+          ))}
+          {!isLoggedIn && (
+            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+              <button
+                onClick={() => { setMobileMenuOpen(false); onOpenLogin(); }}
+                style={{ flex: 1, backgroundColor: '#1E5F3F', color: '#ffffff', padding: '10px', borderRadius: '8px', fontWeight: 600 }}
+              >
+                Login
+              </button>
+              <button
+                onClick={() => { setMobileMenuOpen(false); onOpenRegister(); }}
+                style={{ flex: 1, border: '1px solid #1E5F3F', color: '#1E5F3F', padding: '10px', borderRadius: '8px', fontWeight: 600 }}
+              >
+                Register
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Hero Section */}
       <section style={{
-        padding: '60px 8%',
+        padding: '50px 5%',
         display: 'grid',
-        gridTemplateColumns: '1.2fr 1fr',
-        gap: '40px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '30px',
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -230,17 +291,17 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
             borderRadius: '30px',
             fontWeight: 600,
             fontSize: '0.85rem',
-            marginBottom: '24px'
+            marginBottom: '20px'
           }}>
             💚 Every Life Matters
           </div>
           
           <h1 style={{
-            fontSize: '3.75rem',
+            fontSize: 'clamp(2.1rem, 5vw, 3.75rem)',
             lineHeight: 1.15,
             color: 'var(--text-dark)',
             fontWeight: 800,
-            marginBottom: '20px',
+            marginBottom: '16px',
             fontFamily: 'var(--font-heading)'
           }}>
             Together, We Can<br />
@@ -249,31 +310,29 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
 
           <p style={{
             color: 'var(--text-light)',
-            fontSize: '1.1rem',
+            fontSize: '1rem',
             lineHeight: 1.6,
-            marginBottom: '32px',
+            marginBottom: '28px',
             maxWidth: '520px'
           }}>
             ResQ Paws is a platform that connects kind people with animals in need. Report, Rescue, and Restore — Because they deserve our help.
           </p>
 
-          <div style={{ display: 'flex', gap: '16px' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             <button 
               onClick={() => isLoggedIn ? onNavigate('report-animal') : onOpenLogin()}
               style={{
                 backgroundColor: '#1E5F3F',
                 color: '#ffffff',
-                padding: '16px 28px',
+                padding: '14px 24px',
                 borderRadius: '8px',
                 fontWeight: 600,
-                fontSize: '1rem',
+                fontSize: '0.95rem',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
                 boxShadow: '0 4px 12px rgba(30, 95, 63, 0.2)'
               }}
-              onMouseOver={(e) => e.target.style.backgroundColor = '#174c32'}
-              onMouseOut={(e) => e.target.style.backgroundColor = '#1E5F3F'}
             >
               🐾 Report an Animal
             </button>
@@ -282,17 +341,14 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
               border: '1px solid #cbd5e1',
               backgroundColor: '#ffffff',
               color: '#334155',
-              padding: '16px 28px',
+              padding: '14px 24px',
               borderRadius: '8px',
               fontWeight: 600,
-              fontSize: '1rem',
+              fontSize: '0.95rem',
               display: 'flex',
               alignItems: 'center',
               gap: '8px'
-            }}
-            onMouseOver={(e) => { e.target.style.backgroundColor = '#f8fafc'; e.target.style.borderColor = '#94a3b8'; }}
-            onMouseOut={(e) => { e.target.style.backgroundColor = '#ffffff'; e.target.style.borderColor = '#cbd5e1'; }}
-            >
+            }}>
               <Play size={18} fill="#334155" /> Learn More
             </a>
           </div>
@@ -300,9 +356,9 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
           {/* Stats Bar */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '16px',
-            marginTop: '48px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+            gap: '12px',
+            marginTop: '36px',
             backgroundColor: '#ffffff',
             borderRadius: '12px',
             border: '1px solid #f1f5f9',
@@ -317,25 +373,25 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
             ].map((stat, idx) => (
               <div key={idx} style={{ 
                 textAlign: 'left', 
-                borderRight: idx === 3 ? 'none' : '1px solid #f1f5f9',
-                paddingLeft: idx === 0 ? '0' : '12px',
-                paddingRight: '12px'
+                padding: '4px'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span style={{ fontSize: '1rem' }}>{stat.icon}</span>
-                  <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a' }}>{stat.count}</span>
+                  <span style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>{stat.count}</span>
                 </div>
-                <div style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 500, marginTop: '2px' }}>{stat.label}</div>
+                <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500, marginTop: '2px' }}>{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Right Hero Image */}
-        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', maxWidth: '100%' }}>
           <div style={{
-            width: '450px',
-            height: '450px',
+            width: '100%',
+            maxWidth: '420px',
+            height: 'auto',
+            aspectRatio: '1 / 1',
             borderRadius: '24px',
             backgroundImage: "url('https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=600')",
             backgroundSize: 'cover',
@@ -346,13 +402,14 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
           {/* Floating Help Card */}
           <div style={{
             position: 'absolute',
-            bottom: '30px',
-            right: '-10px',
+            bottom: '20px',
+            right: '10px',
             backgroundColor: '#ffffff',
             border: '1px solid #f1f5f9',
             borderRadius: '16px',
-            padding: '20px',
-            width: '240px',
+            padding: '16px',
+            maxWidth: 'calc(100% - 20px)',
+            width: '220px',
             boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08)',
             textAlign: 'left',
             animation: 'fadeIn 0.5s ease-out'
