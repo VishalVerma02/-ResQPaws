@@ -113,19 +113,19 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
     }
   };
 
+  const cardAccents = ['#1E5F3F', '#3b82f6', '#8b5cf6', '#f59e0b', '#ec4899'];
+
   return (
     <div style={{ padding: '4px' }}>
       
-      {/* Title & Add Action Row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px' }}>
-        <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-dark)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            🎉 Success Stories <Sparkles size={20} color="#eab308" />
-          </h2>
-          <p style={{ fontSize: '0.82rem', color: 'var(--text-light)', marginTop: '4px' }}>
-            Inspiring rescue operations and happy endings that motivate our community.
-          </p>
-        </div>
+      {/* Centered Title & Subtitle Matching How It Works Section */}
+      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h2 style={{ fontSize: '2.25rem', fontWeight: 700, color: 'var(--text-dark)', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+          🎉 Success Stories <Sparkles size={26} color="#eab308" />
+        </h2>
+        <p style={{ color: 'var(--text-medium)', fontSize: '1rem', maxWidth: '600px', margin: '8px auto 20px', lineHeight: 1.5 }}>
+          Inspiring rescue operations and happy endings that motivate our community.
+        </p>
 
         {canWriteStory && (
           <button
@@ -134,18 +134,18 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
               backgroundColor: '#1E5F3F',
               color: '#ffffff',
               border: 'none',
-              padding: '10px 18px',
+              padding: '12px 24px',
               borderRadius: '8px',
               fontWeight: 600,
-              fontSize: '0.85rem',
-              display: 'flex',
+              fontSize: '0.9rem',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: '8px',
               cursor: 'pointer',
-              boxShadow: '0 4px 6px -1px rgba(30, 95, 63, 0.2)'
+              boxShadow: '0 4px 12px rgba(30, 95, 63, 0.2)'
             }}
           >
-            <Plus size={16} /> Share Story
+            <Plus size={18} /> Share Story
           </button>
         )}
       </div>
@@ -159,8 +159,8 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
           <p style={{ fontSize: '0.9rem' }}>No success stories shared yet. Be the first to share a rescue story!</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '30px' }}>
-          {stories.map(story => (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+          {stories.map((story, idx) => (
             <div
               key={story._id}
               className="card"
@@ -169,9 +169,10 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
                 flexDirection: 'column',
                 borderRadius: '16px',
                 border: '1px solid var(--border-color)',
-                padding: '20px',
+                borderTop: `4px solid ${cardAccents[idx % cardAccents.length]}`,
+                padding: '24px',
                 backgroundColor: 'var(--white)',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
                 position: 'relative',
                 textAlign: 'left'
               }}
