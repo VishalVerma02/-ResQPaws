@@ -197,9 +197,9 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
               </div>
 
               {/* Before & After Rescue Comparison */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
                 {/* Before Stage */}
-                <div style={{ width: '100%', position: 'relative' }}>
+                <div style={{ position: 'relative' }}>
                   <img
                     src={story.beforeImage}
                     alt="Before rescue"
@@ -221,12 +221,8 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
                   </span>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0', color: 'var(--text-light)' }}>
-                  <ArrowDown size={18} />
-                </div>
-
                 {/* After Stage */}
-                <div style={{ width: '100%', position: 'relative' }}>
+                <div style={{ position: 'relative' }}>
                   <img
                     src={story.afterImage}
                     alt="After rescue"
