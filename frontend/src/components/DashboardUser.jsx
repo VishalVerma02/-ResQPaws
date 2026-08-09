@@ -543,7 +543,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: 'var(--light-gray)' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', backgroundColor: 'var(--light-gray)' }}>
       {/* Mobile Drawer Overlay Backdrop */}
       {mobileSidebarOpen && (
         <div 
@@ -635,12 +635,9 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowX: 'hidden', marginLeft: '240px' }}>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', marginLeft: '240px' }}>
         {/* Top Header */}
         <header style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 99,
           height: '70px',
           backgroundColor: 'var(--white)',
           borderBottom: '1px solid var(--border-color)',
