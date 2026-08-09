@@ -539,21 +539,43 @@ select.form-control {
   align-items: center !important;
   gap: 12px !important;
   width: auto !important;
+  flex-wrap: nowrap !important;
 }
 
 @media (max-width: 768px) {
+  main > header {
+    flex-wrap: nowrap !important;
+  }
   .header-controls {
     gap: 8px !important;
+    flex-wrap: nowrap !important;
   }
   .header-user-text {
-    text-align: left !important;
+    text-align: right !important;
+    white-space: nowrap !important;
   }
   /* On tablets and mobile screens, display user name cleanly on the same line */
   .header-user-text div:first-child {
-    font-size: 0.8rem !important;
+    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+    max-width: 90px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .header-user-text div:last-child {
     display: none !important; /* Hide subtitle 'Reporter' / 'Admin' to fit on small mobile viewports */
+  }
+  .mobile-menu-btn span {
+    display: none !important; /* Hide Menu text on mobile to save space */
+  }
+  .mobile-menu-btn {
+    padding: 8px !important;
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 
