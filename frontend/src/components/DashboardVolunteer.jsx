@@ -620,27 +620,6 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
           {renderSectionContent()}
         </div>
       </main>
-
-      {/* Floating mobile nav toggle for adaptive display */}
-      <button 
-        className="mobile-nav-toggle"
-        onClick={() => {
-          const sidebar = document.querySelector('aside');
-          if (sidebar) {
-            if (sidebar.style.display === 'flex') {
-              sidebar.style.setProperty('display', 'none', 'important');
-            } else {
-              sidebar.style.setProperty('display', 'flex', 'important');
-              sidebar.style.setProperty('position', 'fixed', 'important');
-              sidebar.style.setProperty('width', '80%', 'important');
-              sidebar.style.setProperty('height', '100vh', 'important');
-              sidebar.style.setProperty('z-index', '999', 'important');
-            }
-          }
-        }}
-      >
-        ☰
-      </button>
     </div>
   );
 }
