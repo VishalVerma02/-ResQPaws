@@ -638,6 +638,9 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowX: 'hidden', marginLeft: '240px' }}>
         {/* Top Header */}
         <header style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 99,
           height: '70px',
           backgroundColor: 'var(--white)',
           borderBottom: '1px solid var(--border-color)',
