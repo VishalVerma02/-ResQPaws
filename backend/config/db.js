@@ -165,6 +165,26 @@ const getSeedSuccessStories = () => {
       status: 'Adopted ❤️',
       authorName: 'Rahul Singh (Volunteer)',
       createdAt: new Date('2025-06-15T15:30:00Z').toISOString()
+    },
+    {
+      _id: '645f9a23f12a3b001c900023',
+      animalName: 'Rocky',
+      beforeImage: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&q=80&w=400',
+      description: 'Rocky was spotted near a construction site with severe heatstroke. ResQ Paws team arrived promptly, provided IV fluids, and placed him in foster care.',
+      status: 'Adopted ❤️',
+      authorName: 'ResQ Paws Team',
+      createdAt: new Date('2025-07-02T09:15:00Z').toISOString()
+    },
+    {
+      _id: '645f9a23f12a3b001c900024',
+      animalName: 'Milo',
+      beforeImage: 'https://images.unsplash.com/photo-1522441815192-d9f04eb0615c?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=400',
+      description: 'Milo the parrot was rescued from tangled kite string in Sector 15. After wing rehabilitation by avian specialists, Milo was safely released back into nature.',
+      status: 'Healthy & Released 🐾',
+      authorName: 'Happy Paws NGO',
+      createdAt: new Date('2025-07-10T14:20:00Z').toISOString()
     }
   ];
 };

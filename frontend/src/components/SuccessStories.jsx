@@ -159,7 +159,13 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
           <p style={{ fontSize: '0.9rem' }}>No success stories shared yet. Be the first to share a rescue story!</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '24px',
+          maxWidth: '1200px',
+          margin: '0 auto'
+        }}>
           {stories.map((story, idx) => (
             <div
               key={story._id}
