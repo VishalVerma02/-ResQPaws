@@ -666,7 +666,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
             <span>Menu</span>
           </button>
 
-          <div className="header-controls" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="header-controls">
           {/* Theme Toggler */}
           <button 
             onClick={onToggleTheme} 

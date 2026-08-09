@@ -537,7 +537,7 @@ select.form-control {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: 12px !important;
+  gap: 16px !important;
   width: auto !important;
   flex-wrap: nowrap !important;
 }

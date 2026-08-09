@@ -430,7 +430,7 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
             <span>Menu</span>
           </button>
 
-          <div className="header-controls" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="header-controls">
             {/* Theme Toggler */}
             <button 
               onClick={onToggleTheme} 
