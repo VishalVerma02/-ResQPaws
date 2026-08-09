@@ -532,3 +532,10 @@ select.form-control {
   }
 }
 
+/* Hide dashboard header user name text on mobile & tablet to fit on a single line next to notification bell */
+@media (max-width: 768px) {
+  .header-user-text {
+    display: none !important;
+  }
+}
+

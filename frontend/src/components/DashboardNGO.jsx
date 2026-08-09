@@ -453,7 +453,7 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
               onClick={() => setActiveTab('profile')} 
               style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}
             >
-              <div style={{ textAlign: 'right' }}>
+              <div className="header-user-text" style={{ textAlign: 'right' }}>
                 <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-dark)' }}>{profileForm.name}</div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-light)', textTransform: 'capitalize' }}>NGO Partner</div>
               </div>
