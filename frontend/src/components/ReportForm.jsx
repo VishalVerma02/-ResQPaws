@@ -441,7 +441,7 @@ export default function ReportForm({ user, onAddReport, onCancel }) {
           <p style={{ color: '#64748b' }}>Your rescue case is now active. Nearby volunteers are being notified.</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', alignItems: 'start' }}>
+        <div className="report-grid">
           {/* Form Side */}
           <div className="card" style={{ textAlign: 'left' }}>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '4px' }}>Report an Animal in Need</h2>
@@ -712,7 +712,7 @@ export default function ReportForm({ user, onAddReport, onCancel }) {
           </div>
 
           {/* Map Side */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="report-sidebar">
             {/* Interactive Mock Map */}
             <div className="card" style={{ padding: '16px', position: 'relative' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>

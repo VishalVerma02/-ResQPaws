@@ -509,3 +509,26 @@ select.form-control {
   }
 }
 
+/* Report Form Grid Layout */
+.report-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.report-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 10px;
+}
+
+@media (max-width: 900px) {
+  .report-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+}
+
