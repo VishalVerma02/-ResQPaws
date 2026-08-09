@@ -583,7 +583,7 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
       </section>
 
       {/* Success Stories Section */}
-      <section id="success-stories" style={{ padding: '80px 8%', backgroundColor: 'var(--light-gray)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
+      <section id="success-stories" style={{ padding: '60px 8%', backgroundColor: 'var(--white)', borderTop: '1px solid var(--border-color)' }}>
         <SuccessStories isDarkMode={isDarkMode} currentUser={user} />
       </section>
 
