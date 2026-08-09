@@ -532,10 +532,28 @@ select.form-control {
   }
 }
 
-/* Hide dashboard header user name text on mobile & tablet to fit on a single line next to notification bell */
+/* Keep header controls layout horizontal on mobile and prevent vertical stacking */
+.header-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: auto !important;
+}
+
 @media (max-width: 768px) {
+  .header-controls {
+    gap: 8px !important;
+  }
   .header-user-text {
-    display: none !important;
+    text-align: left !important;
+  }
+  /* On tablets and mobile screens, display user name cleanly on the same line */
+  .header-user-text div:first-child {
+    font-size: 0.8rem !important;
+  }
+  .header-user-text div:last-child {
+    display: none !important; /* Hide subtitle 'Reporter' / 'Admin' to fit on small mobile viewports */
   }
 }
 

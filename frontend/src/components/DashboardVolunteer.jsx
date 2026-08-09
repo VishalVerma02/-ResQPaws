@@ -511,7 +511,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
             <span>Menu</span>
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="header-controls" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {/* Theme Toggler */}
             <button 
               onClick={onToggleTheme} 
