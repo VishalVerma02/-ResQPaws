@@ -164,7 +164,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
     switch (activeSection) {
       case 'report':
         return (
-          <div style={{ maxWidth: '650px' }}>
+          <div style={{ width: '100%', maxWidth: '1200px' }}>
             <ReportForm 
               onSuccess={() => {
                 setActiveSection('my-reports');
