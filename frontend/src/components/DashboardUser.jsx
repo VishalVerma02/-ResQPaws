@@ -569,8 +569,9 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
         display: 'flex',
         flexDirection: 'column',
         gap: '30px',
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
+        left: 0,
         height: '100vh',
         zIndex: 1000
       }}>
@@ -634,7 +635,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflowX: 'hidden', marginLeft: '240px' }}>
         {/* Top Header */}
         <header style={{
           height: '70px',
