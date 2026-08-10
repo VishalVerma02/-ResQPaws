@@ -26,6 +26,11 @@ app.use('/api/reports', require('./routes/reports'));
 app.use('/api/stats', require('./routes/stats'));
 app.use('/api/stories', require('./routes/stories'));
 
+// Lightweight ping endpoint for keep-alive pinger
+app.get('/api/ping', (req, res) => {
+  res.json({ status: 'ok', message: 'ResQ Paws Server is awake!' });
+});
+
 // Serve static assets (Vite React Build)
 const distPath = path.join(__dirname, '../frontend/dist');
 const indexPath = path.resolve(__dirname, '../frontend', 'dist', 'index.html');
