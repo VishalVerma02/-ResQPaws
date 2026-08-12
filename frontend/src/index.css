@@ -425,13 +425,6 @@ select.form-control {
     gap: 16px !important;
   }
 
-  /* Rescue map grid split on mobile */
-  div[style*="gridTemplateColumns: 1fr 2.5fr"],
-  div[style*="grid-template-columns: 1fr 2.5fr"] {
-    grid-template-columns: 1fr !important;
-    min-height: auto !important;
-  }
-
   /* Responsive Cards */
   .card {
     padding: 16px !important;
@@ -576,6 +569,50 @@ select.form-control {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+  }
+}
+
+/* Landing Page Steps Grid */
+.landing-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+  .landing-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .landing-grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* Live Rescue Map Grid */
+.rescue-map-grid {
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
+  gap: 24px;
+  min-height: 520px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .rescue-map-grid {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+    gap: 20px !important;
+  }
+  
+  #real-rescue-map-canvas {
+    height: 350px !important;
+    min-height: 350px !important;
   }
 }
 

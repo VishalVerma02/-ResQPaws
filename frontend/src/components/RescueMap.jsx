@@ -202,7 +202,7 @@ export default function RescueMap({ reports = [], isDarkMode }) {
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2.5fr', gap: '24px', minHeight: '520px', alignItems: 'stretch' }}>
+    <div className="rescue-map-grid">
       
       {/* Sidebar Controls */}
       <div className="card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px', textAlign: 'left' }}>

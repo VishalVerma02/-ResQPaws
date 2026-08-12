@@ -161,7 +161,7 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
           </button>
 
           {isLoggedIn ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <button 
                 onClick={() => onNavigate('dashboard')}
                 className="btn-dashboard"
@@ -250,17 +250,32 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
               {link}
             </a>
           ))}
-          {!isLoggedIn && (
+          {isLoggedIn ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '10px' }}>
+              <button
+                onClick={() => { setMobileMenuOpen(false); onNavigate('dashboard'); }}
+                style={{ backgroundColor: '#1E5F3F', color: '#ffffff', padding: '12px', borderRadius: '8px', fontWeight: 600, border: 'none', cursor: 'pointer' }}
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={() => { setMobileMenuOpen(false); onLogout(); }}
+                style={{ backgroundColor: 'transparent', border: '1px solid #ef4444', color: '#ef4444', padding: '12px', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
             <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenLogin(); }}
-                style={{ flex: 1, backgroundColor: '#1E5F3F', color: '#ffffff', padding: '10px', borderRadius: '8px', fontWeight: 600 }}
+                style={{ flex: 1, backgroundColor: '#1E5F3F', color: '#ffffff', padding: '10px', borderRadius: '8px', fontWeight: 600, border: 'none', cursor: 'pointer' }}
               >
                 Login
               </button>
               <button
                 onClick={() => { setMobileMenuOpen(false); onOpenRegister(); }}
-                style={{ flex: 1, border: '1px solid #1E5F3F', color: '#1E5F3F', padding: '10px', borderRadius: '8px', fontWeight: 600 }}
+                style={{ flex: 1, border: '1px solid #1E5F3F', color: '#1E5F3F', padding: '10px', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}
               >
                 Register
               </button>
@@ -449,7 +464,7 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
           Follow these 4 simple steps to report distress cases and coordinate live animal rescues.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', position: 'relative', marginBottom: '40px' }}>
+        <div className="landing-grid-4">
           {[
             {
               step: '1',
@@ -593,7 +608,7 @@ export default function LandingPage({ onNavigate, onOpenLogin, onOpenRegister, i
         backgroundColor: '#1E5F3F',
         color: '#ffffff',
         display: 'flex',
-        justifyContent: 'between',
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
         gap: '20px',
