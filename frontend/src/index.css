@@ -428,6 +428,9 @@ select.form-control {
   /* Responsive Cards */
   .card {
     padding: 16px !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
   }
 
   /* Typography Scaling */
@@ -651,6 +654,8 @@ select.form-control {
   .dashboard-grid-2col {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
   }
   
   .dashboard-stats-grid {
@@ -667,6 +672,9 @@ select.form-control {
   max-height: 380px;
   overflow-y: auto;
   padding-right: 4px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Custom scrollbar styling for desktop scrollable div */
@@ -691,6 +699,7 @@ select.form-control {
   border-radius: 8px;
   background-color: var(--white);
   transition: transform 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
 .incident-scroll-card:hover {
@@ -706,6 +715,9 @@ select.form-control {
     gap: 16px !important;
     max-height: none !important;
     padding: 4px 4px 12px 4px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
     -webkit-overflow-scrolling: touch;
   }
   
