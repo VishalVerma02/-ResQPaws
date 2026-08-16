@@ -689,20 +689,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
             </button>
 
             {showNotifications && (
-              <div style={{
-                position: 'absolute',
-                top: '45px',
-                right: 0,
-                width: '320px',
-                backgroundColor: 'var(--white)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '12px',
-                boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-                zIndex: 110,
-                padding: '16px 0',
-                maxHeight: '400px',
-                overflowY: 'auto'
-              }}>
+              <div className="notification-dropdown">
                 <div style={{ padding: '0 16px 12px', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-dark)' }}>Rescue Updates</span>
                   <span style={{ fontSize: '0.8rem', backgroundColor: '#EBF5F0', color: '#1E5F3F', padding: '2px 8px', borderRadius: '12px', fontWeight: 600 }}>

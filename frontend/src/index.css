@@ -729,3 +729,32 @@ select.form-control {
     flex-shrink: 0 !important;
   }
 }
+
+/* Notification Dropdown Container System */
+.notification-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 320px;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  z-index: 110;
+  padding: 16px 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .notification-dropdown {
+    position: fixed !important;
+    top: 70px !important;
+    left: 16px !important;
+    right: 16px !important;
+    width: auto !important;
+    max-width: calc(100vw - 32px) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+}
