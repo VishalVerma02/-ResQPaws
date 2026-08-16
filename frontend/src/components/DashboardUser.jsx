@@ -502,17 +502,9 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
                   <span onClick={() => setActiveSection('my-reports')} style={{ fontSize: '0.85rem', color: '#1E5F3F', fontWeight: 600, cursor: 'pointer' }}>View Mine</span>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="incidents-scroll-list">
                   {reports.slice(0, 4).map(report => (
-                    <div key={report._id} style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '12px 16px',
-                      border: '1px solid var(--border-color)',
-                      borderRadius: '8px',
-                      backgroundColor: 'var(--white)'
-                    }}>
+                    <div key={report._id} className="incident-scroll-card">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', textAlign: 'left' }}>
                         <img 
                           src={report.imageUrl} 

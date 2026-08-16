@@ -658,3 +658,62 @@ select.form-control {
     gap: 16px !important;
   }
 }
+
+/* Incidents Scroll / Swipe Container System */
+.incidents-scroll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Custom scrollbar styling for desktop scrollable div */
+.incidents-scroll-list::-webkit-scrollbar {
+  width: 6px;
+}
+.incidents-scroll-list::-webkit-scrollbar-track {
+  background: var(--light-gray);
+  border-radius: 4px;
+}
+.incidents-scroll-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.incident-scroll-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--white);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.incident-scroll-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+@media (max-width: 768px) {
+  .incidents-scroll-list {
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 16px !important;
+    max-height: none !important;
+    padding: 4px 4px 12px 4px !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Show 1 card fully and a peek of the next to hint horizontal scrolling */
+  .incident-scroll-card {
+    min-width: 85% !important;
+    max-width: 85% !important;
+    scroll-snap-align: center !important;
+    flex-shrink: 0 !important;
+  }
+}
