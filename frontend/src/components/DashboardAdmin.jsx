@@ -700,7 +700,7 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px' }}>
+            <div className="dashboard-grid-2col">
               <div className="card" style={{ textAlign: 'left' }}>
                 <h3 style={{ fontSize: '1.1rem', color: 'var(--text-dark)', fontWeight: 600, marginBottom: '20px' }}>Species Distribution (Monthly)</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -895,7 +895,7 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
       default:
         return (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '30px', marginBottom: '30px', alignItems: 'start' }}>
+            <div className="dashboard-grid-2col dashboard-grid-admin" style={{ marginBottom: '30px' }}>
               <div className="card" style={{ padding: '24px' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '20px', color: 'var(--text-dark)' }}>Reports Overview</h3>
                 <div style={{ width: '100%', height: '180px' }}>
@@ -1215,7 +1215,7 @@ export default function DashboardAdmin({ user, onLogout, isDarkMode, onToggleThe
           </div>
 
           {/* Stats Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
+          <div className="dashboard-stats-grid" style={{ marginBottom: '30px' }}>
             {[
               { label: 'Total Reports', count: stats.totalReports.toLocaleString(), border: '#1E5F3F', color: '#1E5F3F', icon: '🐾', id: 'reports' },
               { label: 'Volunteers', count: stats.volunteers.toLocaleString(), border: '#3b82f6', color: '#3b82f6', icon: '👥', id: 'volunteers' },

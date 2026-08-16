@@ -420,7 +420,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
         return (
           <>
             {/* Stats Dashboard Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
+            <div className="dashboard-stats-grid" style={{ marginBottom: '30px' }}>
               {[
                 { label: 'My Total Reports', count: stats.myReportsCount, border: '#1E5F3F', color: '#1E5F3F', icon: '📝', id: 'my-reports' },
                 { label: 'Active Rescues', count: stats.inProgressCount, border: '#3b82f6', color: '#3b82f6', icon: '🚑', id: 'my-reports' },
@@ -449,7 +449,7 @@ export default function DashboardUser({ user, onNavigate, onLogout, isDarkMode, 
             </div>
 
             {/* Quick Actions & Recent Incidents list */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '30px', alignItems: 'start' }}>
+            <div className="dashboard-grid-2col dashboard-grid-user">
               {/* Quick Actions */}
               <div className="card" style={{ padding: '24px', textAlign: 'left' }}>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '16px', color: 'var(--text-dark)' }}>Quick Rescue Actions</h3>

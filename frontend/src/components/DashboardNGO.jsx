@@ -492,7 +492,7 @@ export default function DashboardNGO({ user, onLogout, isDarkMode, onToggleTheme
 
           {/* Stats Grid */}
           {activeTab !== 'profile' && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
+            <div className="dashboard-stats-grid" style={{ marginBottom: '30px' }}>
               {[
                 { label: 'Cases In Region', count: stats.availableCount, border: '#cbd5e1', color: 'var(--text-dark)', icon: <Compass />, id: 'available' },
                 { label: 'NGO Active Rescues', count: stats.activeCount, border: '#2563eb', color: '#2563eb', icon: <LayoutDashboard />, id: 'accepted' },

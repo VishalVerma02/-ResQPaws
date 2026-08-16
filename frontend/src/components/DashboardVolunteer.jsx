@@ -219,7 +219,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
       case 'dashboard':
       default:
         return (
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '30px', alignItems: 'start' }}>
+          <div className="dashboard-grid-2col">
             {/* Active Rescues */}
             <div>
               <div className="card" style={{ marginBottom: '30px' }}>
@@ -592,7 +592,7 @@ export default function DashboardVolunteer({ user, onLogout, isDarkMode, onToggl
 
           {/* Stats Summary cards */}
           {activeSection === 'dashboard' && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '30px' }}>
+            <div className="dashboard-stats-grid vol-stats" style={{ marginBottom: '30px' }}>
               {[
                 { label: 'Available Cases', count: stats.availableCount, border: '#1E5F3F', color: '#1E5F3F', icon: '🔍' },
                 { label: 'My Active Cases', count: stats.acceptedCount, border: '#3b82f6', color: '#3b82f6', icon: '🚒' },
