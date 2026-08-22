@@ -17,14 +17,31 @@ app.use(express.json());
 // Serve uploads folder static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Connect to Database (with automatic fallback to JSON file storage)
-connectDB();
+// Middleware to ensure DB connection is fully ready before routing any requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('Database connection error in middleware:', err);
+    res.status(500).json({ message: 'Database connection failed', error: err.message });
+  }
+});
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/reports', require('./routes/reports'));
 app.use('/api/stats', require('./routes/stats'));
 app.use('/api/stories', require('./routes/stories'));
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.error('Uncaught Server Error:', err);
+  res.status(500).json({
+    message: err.message || 'An unexpected server error occurred.',
+    error: process.env.NODE_ENV !== 'production' ? err.stack : undefined
+  });
+});
 
 // Lightweight ping endpoint for keep-alive pinger
 app.get('/api/ping', (req, res) => {

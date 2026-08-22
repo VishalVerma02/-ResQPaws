@@ -321,56 +321,69 @@ const makeJSONModel = (fileName, seedFunc) => {
 };
 
 // Database Connection
+let connectionPromise = null;
+
 const connectDB = async () => {
-  const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/resqpaws';
-  console.log(`Attempting to connect to MongoDB at: ${mongoURI}...`);
-
-  try {
-    // Attempt Mongoose connection (timeout after 3s)
-    await mongoose.connect(mongoURI, {
-      serverSelectionTimeoutMS: 3000
-    });
-
-    dbState.dbType = 'mongodb';
-    dbState.isConnected = true;
-    console.log('MongoDB connected successfully!');
-
-    // Import actual Mongoose models
-    const User = require('../models/User');
-    const Report = require('../models/Report');
-    const SuccessStory = require('../models/SuccessStory');
-
-    dbState.models.User = User;
-    dbState.models.Report = Report;
-    dbState.models.SuccessStory = SuccessStory;
-
-    // Seed MongoDB if empty
-    const userCount = await User.countDocuments();
-    if (userCount === 0) {
-      console.log('MongoDB User collection is empty. Seeding database...');
-      const seedUsers = getSeedUsers();
-      await User.insertMany(seedUsers);
-      const seedReports = getSeedReports();
-      await Report.insertMany(seedReports);
-      const seedStories = getSeedSuccessStories();
-      await SuccessStory.insertMany(seedStories);
-      console.log('MongoDB seeded successfully.');
-    }
-  } catch (err) {
-    console.warn('MongoDB connection failed. Falling back to local JSON database storage.');
-    console.warn(`Error detail: ${err.message}`);
-
-    dbState.dbType = 'json';
-    dbState.isConnected = false;
-    initJSONDatabase();
-
-    // Map Mongoose-like methods to JSON files
-    dbState.models.User = makeJSONModel('users', getSeedUsers);
-    dbState.models.Report = makeJSONModel('reports', getSeedReports);
-    dbState.models.SuccessStory = makeJSONModel('successstories', getSeedSuccessStories);
+  if (dbState.isConnected || dbState.models.User) {
+    return dbState;
+  }
+  if (connectionPromise) {
+    return connectionPromise;
   }
 
-  return dbState;
+  connectionPromise = (async () => {
+    const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/resqpaws';
+    console.log(`Attempting to connect to MongoDB at: ${mongoURI}...`);
+
+    try {
+      // Attempt Mongoose connection (timeout after 3s)
+      await mongoose.connect(mongoURI, {
+        serverSelectionTimeoutMS: 3000
+      });
+
+      dbState.dbType = 'mongodb';
+      dbState.isConnected = true;
+      console.log('MongoDB connected successfully!');
+
+      // Import actual Mongoose models
+      const User = require('../models/User');
+      const Report = require('../models/Report');
+      const SuccessStory = require('../models/SuccessStory');
+
+      dbState.models.User = User;
+      dbState.models.Report = Report;
+      dbState.models.SuccessStory = SuccessStory;
+
+      // Seed MongoDB if empty
+      const userCount = await User.countDocuments();
+      if (userCount === 0) {
+        console.log('MongoDB User collection is empty. Seeding database...');
+        const seedUsers = getSeedUsers();
+        await User.insertMany(seedUsers);
+        const seedReports = getSeedReports();
+        await Report.insertMany(seedReports);
+        const seedStories = getSeedSuccessStories();
+        await SuccessStory.insertMany(seedStories);
+        console.log('MongoDB seeded successfully.');
+      }
+    } catch (err) {
+      console.warn('MongoDB connection failed. Falling back to local JSON database storage.');
+      console.warn(`Error detail: ${err.message}`);
+
+      dbState.dbType = 'json';
+      dbState.isConnected = false;
+      initJSONDatabase();
+
+      // Map Mongoose-like methods to JSON files
+      dbState.models.User = makeJSONModel('users', getSeedUsers);
+      dbState.models.Report = makeJSONModel('reports', getSeedReports);
+      dbState.models.SuccessStory = makeJSONModel('successstories', getSeedSuccessStories);
+    }
+
+    return dbState;
+  })();
+
+  return connectionPromise;
 };
 
 module.exports = {
