@@ -48,6 +48,20 @@ app.get('/api/ping', (req, res) => {
   res.json({ status: 'ok', message: 'ResQ Paws Server is awake!' });
 });
 
+// Diagnostic endpoint to check backend database state on Vercel
+app.get('/api/diag', (req, res) => {
+  const { getDbType, dbState } = require('./config/db');
+  res.json({
+    vercel: !!process.env.VERCEL,
+    nodeEnv: process.env.NODE_ENV,
+    mongoUriSet: !!process.env.MONGO_URI,
+    mongoUriLength: process.env.MONGO_URI ? process.env.MONGO_URI.length : 0,
+    dbType: getDbType(),
+    dbConnected: dbState.isConnected,
+    models: Object.keys(dbState.models)
+  });
+});
+
 // Serve static assets (Vite React Build)
 const distPath = path.join(__dirname, '../frontend/dist');
 const indexPath = path.resolve(__dirname, '../frontend', 'dist', 'index.html');
