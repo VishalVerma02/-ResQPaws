@@ -56,6 +56,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body, #root, .landing-page, main {
   width: 100%;
   max-width: 100vw;
