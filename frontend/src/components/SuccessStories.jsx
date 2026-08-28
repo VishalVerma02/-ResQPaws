@@ -20,16 +20,84 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
   // Can this user write stories? (NGO, Volunteer, Admin)
   const canWriteStory = currentUser && ['ngo', 'volunteer', 'admin'].includes(currentUser.role);
 
+  const defaultStories = [
+    {
+      _id: '645f9a23f12a3b001c900021',
+      animalName: 'Bruno',
+      beforeImage: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&q=80&w=400',
+      description: 'Bruno was found on Noida Expressway with severe dehydration and leg fracture. NGO and volunteers rescued him, operated, and he has now been adopted by a loving family!',
+      status: 'Adopted ❤️',
+      authorName: 'Happy Paws NGO'
+    },
+    {
+      _id: '645f9a23f12a3b001c900022',
+      animalName: 'Bella',
+      beforeImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&q=80&w=400',
+      description: 'Bella the kitten was trapped in a deep storm pipe for 2 days. Volunteers retrieved her and nurtured her. She is now healthy and adopted.',
+      status: 'Adopted ❤️',
+      authorName: 'Rahul Singh (Volunteer)'
+    },
+    {
+      _id: '645f9a23f12a3b001c900023',
+      animalName: 'Rocky',
+      beforeImage: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1561037404-61cd46aa615b?auto=format&fit=crop&q=80&w=400',
+      description: 'Rocky was spotted near a construction site with severe heatstroke. ResQ Paws team arrived promptly, provided IV fluids, and placed him in foster care.',
+      status: 'Adopted ❤️',
+      authorName: 'ResQ Paws Team'
+    },
+    {
+      _id: '645f9a23f12a3b001c900024',
+      animalName: 'Milo',
+      beforeImage: 'https://images.unsplash.com/photo-1522441815192-d9f04eb0615c?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&q=80&w=400',
+      description: 'Milo the parrot was rescued from tangled kite string in Sector 15. After wing rehabilitation by avian specialists, Milo was safely released back into nature.',
+      status: 'Healthy & Released 🐾',
+      authorName: 'Happy Paws NGO'
+    },
+    {
+      _id: '645f9a23f12a3b001c900025',
+      animalName: 'Charlie',
+      beforeImage: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=400',
+      description: 'Charlie was found shivering during monsoon rains in Greater Noida with a high fever. ResQ Paws volunteers sheltered him, completed treatment & vaccination, and he is now adopted!',
+      status: 'Adopted ❤️',
+      authorName: 'ResQ Paws Team'
+    },
+    {
+      _id: '645f9a23f12a3b001c900026',
+      animalName: 'Coco',
+      beforeImage: 'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400',
+      description: 'Coco the Persian cat was rescued from an abandoned warehouse with an eye injury. After emergency surgery by our partner vet clinic, Coco made a 100% recovery!',
+      status: 'Adopted ❤️',
+      authorName: 'Paws Welfare NGO'
+    }
+  ];
+
   const fetchStories = async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/stories');
       if (res.ok) {
         const data = await res.json();
-        setStories(data);
+        let merged = Array.isArray(data) && data.length > 0 ? [...data] : [];
+        if (merged.length < 6) {
+          defaultStories.forEach(ds => {
+            if (merged.length < 6 && !merged.some(s => s._id === ds._id || s.animalName === ds.animalName)) {
+              merged.push(ds);
+            }
+          });
+        }
+        setStories(merged);
+      } else {
+        setStories(defaultStories);
       }
     } catch (err) {
       console.error(err);
+      setStories(defaultStories);
     } finally {
       setLoading(false);
     }
@@ -272,6 +340,58 @@ export default function SuccessStories({ isDarkMode, currentUser }) {
           ))}
         </div>
       )}
+
+      {/* Interactive Share Story Call-To-Action Banner */}
+      <div className="card" style={{
+        maxWidth: '1200px',
+        margin: '40px auto 0',
+        padding: '28px 32px',
+        backgroundColor: '#EBF5F0',
+        border: '2px dashed #1E5F3F',
+        borderRadius: '16px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '20px',
+        textAlign: 'left'
+      }}>
+        <div>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#1E5F3F', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            🐾 Have a Life-Saving Rescue Story to Share?
+          </h3>
+          <p style={{ fontSize: '0.88rem', color: '#334155', marginTop: '6px', maxWidth: '650px', lineHeight: 1.5 }}>
+            Every before & after transformation story gives hope to thousands of animal lovers. Share your rescue journey, foster story, or adoption update with the ResQ Paws community!
+          </p>
+        </div>
+        <button
+          onClick={() => {
+            if (canWriteStory) {
+              setShowAddForm(true);
+            } else if (currentUser) {
+              alert('Rescue stories can be shared by NGO accounts, Volunteers, and Admins. If you are a reporter, send your story via our Contact Form!');
+            } else {
+              alert('Please Login/Register to post your success story!');
+            }
+          }}
+          style={{
+            backgroundColor: '#1E5F3F',
+            color: '#ffffff',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            fontWeight: 700,
+            fontSize: '0.9rem',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            boxShadow: '0 4px 12px rgba(30, 95, 63, 0.25)'
+          }}
+        >
+          <Plus size={18} /> Share Your Rescue Story
+        </button>
+      </div>
 
       {/* Share Success Story Modal */}
       {showAddForm && (

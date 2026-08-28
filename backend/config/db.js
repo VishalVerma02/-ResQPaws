@@ -185,6 +185,26 @@ const getSeedSuccessStories = () => {
       status: 'Healthy & Released 🐾',
       authorName: 'Happy Paws NGO',
       createdAt: new Date('2025-07-10T14:20:00Z').toISOString()
+    },
+    {
+      _id: '645f9a23f12a3b001c900025',
+      animalName: 'Charlie',
+      beforeImage: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&q=80&w=400',
+      description: 'Charlie was found shivering during monsoon rains in Greater Noida with a high fever. ResQ Paws volunteers sheltered him, completed treatment & vaccination, and he is now adopted!',
+      status: 'Adopted ❤️',
+      authorName: 'ResQ Paws Team',
+      createdAt: new Date('2025-08-01T10:00:00Z').toISOString()
+    },
+    {
+      _id: '645f9a23f12a3b001c900026',
+      animalName: 'Coco',
+      beforeImage: 'https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&q=80&w=400',
+      afterImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400',
+      description: 'Coco the Persian cat was rescued from an abandoned warehouse with an eye injury. After emergency surgery by our partner vet clinic, Coco made a 100% recovery!',
+      status: 'Adopted ❤️',
+      authorName: 'Paws Welfare NGO',
+      createdAt: new Date('2025-08-12T16:45:00Z').toISOString()
     }
   ];
 };
